@@ -9,8 +9,8 @@ module.exports = {
     name: 'puissance4',
     usage: 'puissance4',
     async execute(client, message, args) {
-
-        let color = cl.fetch(`color_${message.guild.id}`)
+        try{
+            let color = cl.fetch(`color_${message.guild.id}`)
         if (color == null) color = config.app.color
 
         if (!message.mentions.members.first()) 
@@ -35,5 +35,7 @@ module.exports = {
             cancelMessage: 'On dirait qu\'il a refusé',
             timeEndMessage: 'L\'adversaire n\'a pas répondu',
         }).startGame();
+        }
+        catch{}
     },
 };

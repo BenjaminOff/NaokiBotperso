@@ -21,8 +21,7 @@ module.exports = {
 
         let roleping = db.get(`role_${newMember.guild.id}`)
         if (roleping === null) roleping = "@everyone"
-        let fetchedLogs = await oldMember.guild.fetchAuditLogs({ type: "MEMBER_ROLE_UPDATE" })
-        deletionLog = fetchedLogs.entries.first();
+        let deletionLog = await oldMember.guild.fetchAuditLogs({ type: "MEMBER_ROLE_UPDATE" }).then((audit) => audit.entries.first())
         if (!deletionLog | !deletionLog.executor) return
         if (deletionLog.executor.id === client.user.id) return
 
@@ -65,8 +64,9 @@ module.exports = {
 
                 if (owner.get(`owners.${executor.id}`) || config.app.owners === executor.id === true || client.user.id === executor.id === true) return
 
-                const audit = await oldMember.guild.fetchAuditLogs({type: "MEMBER_ROLE_UPDATE"}).then((audit) => audit.entries.first())
-        if (audit.executor === client.user.id) return
+                const audit = await oldMember.guild.fetchAuditLogs({type: 25}).then((audit) => audit.entries.first())
+                if (!audit || !audit.executor) return
+                if (audit.executor === client.user.id) return
                 if (audit?.executor?.id == client.user.id) return
 
                 let oldRoleIDs = [];

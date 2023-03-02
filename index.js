@@ -179,6 +179,7 @@ global.player = new Player(client, config.app.discordPlayer);
 
 //ANTI CRASH
 process.on("unhandledRejection", (reason, p) => {
+    if (reason.code === 50007) return; // Cannot send messages to this user
     if (reason.code == 10062) return; // Unknown interaction
     if (reason.code == 10008) return; // Unknown message
     if (reason.code ==  50013) return; // Missing permissions

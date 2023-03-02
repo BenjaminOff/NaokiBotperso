@@ -77,7 +77,7 @@ module.exports = {
         countdown();
 
         const filter = button => {
-            return button.user.id == message.author.id || button.user.id == opponent.id;
+            return button.user.id == message.author.id;
         };
 
         const button = await msg.awaitMessageComponent({ filter: filter, componentType: 'BUTTON', max: 1 });
